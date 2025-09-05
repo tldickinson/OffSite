@@ -2,6 +2,10 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 
+var maxBuilders = 10;
+var maxHarvesters = 8;
+var maxUpgraders = 5;
+
 module.exports.loop = function () {
 
     for(var name in Memory.creeps) {
@@ -14,26 +18,26 @@ module.exports.loop = function () {
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     console.log('Harvesters: ' + harvesters.length);
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-    console.log('Upgraders: ' + harvesters.length);
+    console.log('Upgraders: ' + upgraders.length);
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-    console.log('Builders: ' + harvesters.length);
+    console.log('Builders: ' + builders.length);
 
-    if(harvesters.length < 2) {
+    if(harvesters.length < maxHarvesters) {
         var newName = 'Harvester' + Game.time;
         console.log('Spawning new harvester: ' + newName);
-        Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName, 
+        Game.spawns['Spawn1'].spawnCreep([WORK,WORK,CARRY,MOVE,MOVE,MOVE], newName, 
             {memory: {role: 'harvester'}});
     }
-    if(upgraders.length < 2) {
+    if(upgraders.length < maxUpgraders) {
         var newName = 'Upgrader' + Game.time;
         console.log('Spawning new upgrader: ' + newName);
-        Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName, 
+        Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE,MOVE,MOVE], newName, 
             {memory: {role: 'upgrader'}});
     }
-    if(builders.length < 1) {
+    if(builders.length < maxBuilders) {
         var newName = 'Builder' + Game.time;
         console.log('Spawning new builder: ' + newName);
-        Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], newName, 
+        Game.spawns['Spawn1'].spawnCreep([WORK,WORK,CARRY,CARRY,MOVE], newName, 
             {memory: {role: 'builder'}});
     }
     

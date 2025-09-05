@@ -21,7 +21,15 @@ var roleBuilder = {
             }
 	    }
 	    else {
-	        var sources = creep.room.find(FIND_SOURCES);
+	        var sources = creep.room.find(STRUCTURE_CONTAINER);
+	       // for (const source of sources){
+	       //     if(Memory.rooms[room.name].energySources[source.id].creeps.length < MAX_HARVESTERS_PER_SOURCE){
+	       //         creep.memory.sourceId=source.id;
+	       //         Memory.rooms[room.name]energySources[source.id].creeps.push(creep.name);
+	       //         assignedSource = source;
+	       //         break;
+	       //     }
+	       // }
             if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
             }
